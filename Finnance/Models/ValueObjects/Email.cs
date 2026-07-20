@@ -4,16 +4,16 @@ namespace Finnance.Domain.ValueObjects;
 
 public sealed class Email
 {
-  // Necessario no EF core!
-  private Email()
-  {
-  }
   private static readonly Regex EmailRegex = new(
       @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
       RegexOptions.Compiled);
 
   public string Value { get; private set; }
 
+  // Necessario no EF core!
+  private Email()
+  {
+  }
   public Email(string value)
   {
     if (string.IsNullOrWhiteSpace(value))
