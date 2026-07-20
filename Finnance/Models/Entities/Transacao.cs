@@ -43,7 +43,6 @@ public class Transacao
   Dinheiro amount,
   DateTime date)
   {
-    Id = 0;
     User = user;
     UserId = user.Id;
     Type = type;
