@@ -19,7 +19,7 @@ User
 public class User
 {
   public Guid Id { get; private set; }
-  public string UserName { get; private set; }
+  public string Username { get; private set; }
   public Email Email { get; private set; }
   public string PasswordHash { get; private set; }
   public DateTime CreatedAt { get; private set; }
@@ -34,7 +34,7 @@ public class User
   private User(string username, Email email, string password)
   {
     Id = Guid.NewGuid();
-    UserName = username;
+    Username = username;
     Email = email;
     PasswordHash = password;
     CreatedAt = DateTime.UtcNow;

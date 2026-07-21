@@ -1,0 +1,15 @@
+using Finnance.Models.Entities;
+using Microsoft.EntityFrameworkCore;
+
+namespace Finnance.Data;
+
+public class FinnanceDataContext : DbContext
+{
+  public DbSet<User> Users { get; set; }
+  public DbSet<Transacao> Transacoes { get; set; }
+  public DbSet<RefreshToken> RefreshTokens { get; set; }
+  protected override void OnConfiguring
+  (DbContextOptionsBuilder options)
+    => options.UseSqlite("DataSource=finnance.db;Cache=Shared");
+
+}

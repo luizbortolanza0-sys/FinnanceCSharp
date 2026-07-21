@@ -1,6 +1,6 @@
 using System.Text.RegularExpressions;
 
-namespace Finnance.Domain.ValueObjects;
+namespace Finnance.Models.ValueObjects;
 
 public sealed class Email
 {
