@@ -11,7 +11,30 @@ public class RefreshTokenMap : IEntityTypeConfiguration<RefreshToken>
     builder.ToTable("RefreshTokens");
 
     builder.HasKey(x => x.Id);
+    builder.Property(x => x.Id)
+    .ValueGeneratedOnAdd();
 
+    builder.HasOne(x => x.User)
+    .WithMany()
+    .IsRequired()
+    .HasForeignKey(x => x.UserId)
+    .OnDelete(DeleteBehavior.Cascade);
+
+    builder.Property(x => x.Token)
+    .IsRequired()
+    .HasMaxLength(128);
+
+    builder.Property(x => x.ExpiresAt)
+    .IsRequired();
+
+    builder.Property(x => x.CreatedAt)
+    .IsRequired();
+
+    builder.Property(x => x.RevokedAt);
+
+    builder.Ignore(x => x.IsActive);
+    builder.Ignore(x => x.IsExpired);
+    builder.Ignore(x => x.IsRevoked);
 
   }
 }

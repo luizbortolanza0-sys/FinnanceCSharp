@@ -1,0 +1,11 @@
+{
+  "sqltools.connections": [
+    {
+      "previewLimit": 50,
+      "driver": "SQLite",
+      "name": "finnance.db",
+      "database": "~/Projects/C#/FinnanceCSharp/Finnance/finnance.db"
+    }
+  ],
+  "sqltools.useNodeRuntime": true
+}

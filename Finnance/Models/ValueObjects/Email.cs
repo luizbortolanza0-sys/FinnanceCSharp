@@ -8,7 +8,7 @@ public sealed class Email
       @"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$",
       RegexOptions.Compiled);
 
-  public string Value { get; private set; }
+  public string Value { get; private set; } = null!;
 
   // Necessario no EF core!
   private Email()

@@ -1,5 +1,3 @@
-using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
-
 namespace Finnance.Models.Entities;
 
 /*
@@ -16,8 +14,8 @@ RefreshToken
 public class RefreshToken
 {
   public int Id { get; private set; }
-  public string Token { get; private set; }
-  public User User { get; private set; }
+  public string Token { get; private set; } = null!;
+  public User User { get; private set; } = null!;
   public Guid UserId { get; private set; }
   public DateTime ExpiresAt { get; private set; }
   public DateTime? RevokedAt { get; private set; }

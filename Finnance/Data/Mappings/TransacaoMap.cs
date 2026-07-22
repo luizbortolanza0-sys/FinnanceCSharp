@@ -18,6 +18,7 @@ public class TransacaoMap : IEntityTypeConfiguration<Transacao>
 
     builder.HasOne(x => x.User)
     .WithMany()
+    .IsRequired()
     .HasForeignKey(x => x.UserId)
     .OnDelete(DeleteBehavior.Cascade);
 

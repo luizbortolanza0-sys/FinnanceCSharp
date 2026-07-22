@@ -1,6 +1,4 @@
-using System.ComponentModel.DataAnnotations;
-using System.Runtime.InteropServices;
-using Finnance.Domain.ValueObjects;
+using Finnance.Models.ValueObjects;
 
 namespace Finnance.Models.Entities;
 
@@ -19,18 +17,16 @@ User
 public class User
 {
   public Guid Id { get; private set; }
-  public string Username { get; private set; }
-  public Email Email { get; private set; }
-  public string PasswordHash { get; private set; }
+  public string Username { get; private set; } = null!;
+  public Email Email { get; private set; } = null!;
+  public string PasswordHash { get; private set; } = null!;
   public DateTime CreatedAt { get; private set; }
   public DateTime? UpdatedAt { get; private set; }
   public DateTime? DeletedAt { get; private set; }
   public bool IsActive { get; private set; }
 
   // Necessario no EF core!
-  private User()
-  {
-  }
+  private User() { }
   private User(string username, Email email, string password)
   {
     Id = Guid.NewGuid();

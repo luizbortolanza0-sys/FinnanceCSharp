@@ -1,3 +1,4 @@
+using Finnance.Data.Mappings;
 using Finnance.Models.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -11,5 +12,12 @@ public class FinnanceDataContext : DbContext
   protected override void OnConfiguring
   (DbContextOptionsBuilder options)
     => options.UseSqlite("DataSource=finnance.db;Cache=Shared");
+
+  protected override void OnModelCreating(ModelBuilder modelBuilder)
+  {
+    modelBuilder.ApplyConfiguration(new RefreshTokenMap());
+    modelBuilder.ApplyConfiguration(new TransacaoMap());
+    modelBuilder.ApplyConfiguration(new UserMap());
+  }
 
 }
