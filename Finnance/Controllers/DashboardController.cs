@@ -6,5 +6,10 @@ namespace Finnance.Controllers;
 [Route("dashboard")]
 public class DashboardController : ControllerBase
 {
-
+  [HttpGet]
+  [Route("teste")]
+  public string GetTeste()
+  {
+    return "Teste";
+  }
 }

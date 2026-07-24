@@ -37,9 +37,9 @@ public class User
     IsActive = true;
   }
 
-  static public User Create(string userName, string email, string password)
+  static public User Create(string username, string email, string password)
   {
-    if (string.IsNullOrWhiteSpace(userName))
+    if (string.IsNullOrWhiteSpace(username))
       throw new ArgumentException("O username é obrigatorio!");
 
     if (string.IsNullOrWhiteSpace(password))
@@ -47,7 +47,7 @@ public class User
 
     var emailValido = new Email(email);
 
-    return new User(userName, emailValido, password);
+    return new User(username, emailValido, password);
   }
 
 }

@@ -1,3 +1,4 @@
+using Finnance.DTOs.Auth;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Finnance.Controllers;
@@ -8,8 +9,9 @@ public class AuthController : ControllerBase
 {
   [HttpPost]
   [Route("login")]
-  public IActionResult PostLogin()
+  public IActionResult PostLogin(/*[FromBody] PostLoginDto loginUser*/)
   {
+
     return Ok();
   }
 
