@@ -37,7 +37,7 @@ public class User
     IsActive = true;
   }
 
-  static public User Create(string username, string email, string password)
+  public static User Create(string username, string email, string password)
   {
     if (string.IsNullOrWhiteSpace(username))
       throw new ArgumentException("O username é obrigatorio!");

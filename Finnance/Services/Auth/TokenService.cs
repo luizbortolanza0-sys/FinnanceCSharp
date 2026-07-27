@@ -20,34 +20,63 @@ public class TokenService : ITokenService
   public string GenerateToken(User user)
   {
     var tokenHandler = new JwtSecurityTokenHandler();
-    var key = Encoding.ASCII.GetBytes(_jwtSettings.Key);
+    var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
     var tokenDescriptor = new SecurityTokenDescriptor
     {
-      Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes),
-      SigningCredentials =
-      new SigningCredentials
-      (new SymmetricSecurityKey(key),
-      SecurityAlgorithms.HmacSha256Signature),
       Subject = new ClaimsIdentity(new Claim[]
       {
-        new ("",""),
-        new ("",""),
-        new ("","")
+        new (ClaimTypes.NameIdentifier, user.Id.ToString()),
+        new (ClaimTypes.Name, user.Username),
+        new (ClaimTypes.Email, user.Email.Value),
+        new (JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
 
-      })
+      }),
+      Expires = DateTime.UtcNow.AddMinutes(_jwtSettings.ExpirationMinutes),
+      SigningCredentials =
+      new SigningCredentials(new SymmetricSecurityKey(key),
+      SecurityAlgorithms.HmacSha256Signature),
+      Issuer = _jwtSettings.Issuer,
+      Audience = _jwtSettings.Audience
 
     };
     var token = tokenHandler.CreateToken(tokenDescriptor);
-    return "teste";
+    return tokenHandler.WriteToken(token);
   }
 
-  public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token)
+  public ClaimsPrincipal GetPrincipalFromExpiredToken(string token)
   {
-    throw new NotImplementedException();
-  }
+    var tokenHandler = new JwtSecurityTokenHandler();
+    var key = Encoding.UTF8.GetBytes(_jwtSettings.Key);
 
-  public bool ValidateToken(string token)
-  {
-    throw new NotImplementedException();
+    var validationParameters = new TokenValidationParameters
+    {
+      ValidateIssuerSigningKey = true,
+      IssuerSigningKey = new SymmetricSecurityKey(key),
+
+      ValidateIssuer = true,
+      ValidIssuer = _jwtSettings.Issuer,
+
+      ValidateAudience = true,
+      ValidAudience = _jwtSettings.Audience,
+
+      ValidateLifetime = false
+    };
+
+    var principal = tokenHandler.ValidateToken(
+        token,
+        validationParameters,
+        out SecurityToken validatedToken);
+
+    if (validatedToken is not JwtSecurityToken jwtToken)
+      throw new SecurityTokenException("Token inválido.");
+
+    if (!jwtToken.Header.Alg.Equals(
+            SecurityAlgorithms.HmacSha256,
+            StringComparison.OrdinalIgnoreCase))
+    {
+      throw new SecurityTokenException("Algoritmo inválido.");
+    }
+
+    return principal;
   }
 }
