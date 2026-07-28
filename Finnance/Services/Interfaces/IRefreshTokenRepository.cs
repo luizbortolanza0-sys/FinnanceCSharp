@@ -1,6 +1,7 @@
 using Finnance.Models.Entities;
 
 namespace Finnance.Services.Interfaces;
+//Falta implementar
 
 public interface IRefreshTokenRepository
 {

@@ -1,9 +1,7 @@
-using Finnance.Data;
-using Finnance.DTOs.Dashboard;
 using Finnance.Models.Entities;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Finnance.Services.Interfaces;
+//Falta implementar
 
 public interface ITransactionRepository
 {
