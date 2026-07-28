@@ -1,10 +1,9 @@
 using Finnance.DTOs.Auth;
 using Finnance.Services.Interfaces;
-using Microsoft.AspNetCore.Mvc;
 
 namespace Finnance.Services.Auth;
 
-public class LoginService
+public class AuthLoginService
 {
   private readonly IUserRepository _userRepository;
   private readonly IPasswordHasher _passwordHasher;
@@ -12,7 +11,7 @@ public class LoginService
   private readonly IRefreshTokenService _refreshTokenService;
   private readonly IRefreshTokenRepository _refreshTokenRepository;
 
-  public LoginService(
+  public AuthLoginService(
       IUserRepository userRepository,
       IPasswordHasher passwordHasher,
       ITokenService tokenService,
@@ -26,7 +25,7 @@ public class LoginService
     _refreshTokenRepository = refreshTokenRepository;
   }
 
-  public async Task<PostLoginResponseDto> LoginAsync(PostLoginDto dto)
+  public async Task<PostTokenResponse> LoginAsync(PostLoginDto dto)
   {
     var user = await _userRepository.GetUserByUsernameAsync(dto.Login);
 
@@ -40,7 +39,7 @@ public class LoginService
 
     await _refreshTokenRepository.SaveAsync(refreshToken);
 
-    return new PostLoginResponseDto
+    return new PostTokenResponse
     {
       Token = _tokenService.GenerateToken(user),
       RefreshToken = refreshToken.Token
