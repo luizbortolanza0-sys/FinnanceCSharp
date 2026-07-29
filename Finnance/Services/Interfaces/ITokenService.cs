@@ -5,6 +5,6 @@ namespace Finnance.Services.Interfaces;
 
 public interface ITokenService
 {
-  string GenerateToken(User user);
-  ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
+  public string GenerateToken(User user);
+  public ClaimsPrincipal? GetPrincipalFromExpiredToken(string token);
 }

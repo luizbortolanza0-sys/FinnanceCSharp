@@ -37,7 +37,7 @@ public class AuthController : ControllerBase
     {
       var response = await _loginService.LoginAsync(loginUser);
 
-      return Ok(response);
+      return Created("", response);
     }
     catch (UnauthorizedAccessException)
     {
@@ -75,20 +75,31 @@ public class AuthController : ControllerBase
   }
 
   [HttpPost]
-  [Route("refreshToken")]
+  [Route("refresh")]
   public async Task<IActionResult> PostRefreshToken([FromBody] string refreshToken)
   {
     if (!await _refreshTokenService.ValidateAsync(refreshToken))
       return BadRequest("Token invalido ou expirado!");
 
+    try
+    {
+      var newTokenResponse = await _refreshTokenService.RotateAsync(refreshToken);
+      return Ok(newTokenResponse);
+    }
+    catch (Exception ex)
+    {
+      return BadRequest(ex.Message);
+    }
 
-    return Ok();
   }
 
   [HttpPost]
   [Route("logout")]
-  public IActionResult PostLogout()
+  public async Task<IActionResult> PostLogout([FromBody] string refreshToken)
   {
-    return Ok();
+    if (!await _refreshTokenService.RevokeTokenAsync(refreshToken))
+      return BadRequest("Token invalido!");
+
+    return Ok("Logout realizado com sucesso!");
   }
 }

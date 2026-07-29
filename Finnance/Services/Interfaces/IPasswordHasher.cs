@@ -2,6 +2,6 @@ namespace Finnance.Services.Interfaces;
 
 public interface IPasswordHasher
 {
-  string Hash(string password);
-  bool Verify(string passwordHash, string password);
+  public string Hash(string password);
+  public bool Verify(string passwordHash, string password);
 }

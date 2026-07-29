@@ -5,6 +5,6 @@ namespace Finnance.Services.Interfaces;
 
 public interface IRefreshTokenRepository
 {
-  Task<RefreshToken> GetRefreshTokenAsync(Guid userId);
-  Task<bool> SaveAsync(RefreshToken token);
+  public Task<RefreshToken> GetRefreshTokenAsync(Guid userId);
+  public Task<bool> SaveAsync(RefreshToken token);
 }
