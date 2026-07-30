@@ -8,6 +8,7 @@ public interface IRefreshTokenService
 {
   public Task<RefreshToken> CreateAsync(User user);
   public Task<bool> ValidateAsync(string token);
+
   public Task<PostTokenResponse> RotateAsync(string token);
   public Task<bool> RevokeTokenAsync(string token);
 }
